@@ -3,8 +3,11 @@
   "repository": "git@github.com:zioroboco/amped.git",
   "author": "Louis Quinnell <zioroboco@gmail.com>",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "format": "prettier --write *"
+  },
   "dependencies": {
+    "prettier": "^1.12.1",
     "typescript": "^2.8.3"
   },
   "workspaces": [
