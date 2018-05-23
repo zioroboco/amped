@@ -1,0 +1,11 @@
+{
+  "name": "amped",
+  "repository": "git@github.com:zioroboco/amped.git",
+  "author": "Louis Quinnell <zioroboco@gmail.com>",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "workspaces": [
+    "packages/*"
+  ]
+}
