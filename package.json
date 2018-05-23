@@ -4,7 +4,9 @@
   "author": "Louis Quinnell <zioroboco@gmail.com>",
   "private": true,
   "scripts": {},
-  "dependencies": {},
+  "dependencies": {
+    "typescript": "^2.8.3"
+  },
   "workspaces": [
     "packages/*"
   ]
