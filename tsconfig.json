@@ -6,6 +6,10 @@
     "moduleResolution": "node",
     "strict": true,
     "noImplicitAny": false,
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@amped/*": ["packages/*/src"]
+    }
   }
 }
