@@ -17,6 +17,8 @@ Amped is a jacked-up development environment for building and deploying front-en
   - [`yarn compile`](#yarn-compile)
   - [`yarn test [--coverage]`](#yarn-test-coverage)
   - [`yarn precommit`](#yarn-precommit)
+- [Project configuration](#project-configuration)
+  - [Jest](#jest)
 
 <!-- /TOC -->
 
@@ -73,3 +75,9 @@ Run tests across all workspaces, with optional coverage reporting.
 ### `yarn precommit`
 
 Run the complete static analysis and testing pipeline. Should ensure that a branch will pass CI, provided that the working tree is clean.
+
+## Project configuration
+
+### Jest
+
+Jest is configured to run tests across all workspaces via the root `jest.config.js`. A base config for workspaces is defined in `jest.workspace.js`, which includes path mappings to the other workspaces. The workspace config file is then imported into the `jest.config.js` files of each workspace, and can be extended there as required.
