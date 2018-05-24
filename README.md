@@ -1,5 +1,7 @@
 # Amped ⚡️
 
+[![CircleCI](https://circleci.com/gh/zioroboco/amped.svg?style=shield&circle-token=5377461df8be62cbc4bc6c9cc43b2dab226dd745)](https://circleci.com/gh/zioroboco/amped)
+
 Amped is a jacked-up development environment for building and deploying front-end components and their supporting serverless infrastructure.
 
 <!-- TOC -->

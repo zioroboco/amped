@@ -1,0 +1,25 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/amped
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: yarn install
+      - run:
+          name: format
+          command: yarn format-ci
+      - run:
+          name: compile
+          command: yarn compile
+      - run:
+          name: test
+          command: yarn test-ci --runInBand --testResultsProcessor="jest-junit"
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/junit/results.xml"
+      - store_test_results:
+          path: reports/junit
