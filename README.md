@@ -8,6 +8,8 @@ Amped is a jacked-up development environment for building and deploying front-en
   - [`@amped/client`](#ampedclient)
   - [`@amped/components`](#ampedcomponents)
   - [`@amped/services`](#ampedservices)
+- [Package scripts](#package-scripts)
+  - [`yarn compile`](#yarn-compile)
 
 <!-- /TOC -->
 
@@ -36,3 +38,9 @@ This workspace is responsible for providing (and testing!) the UI components use
 This workspace is responsible for defining and deploying the back-end services which provide data to `@amped/client`.
 
 [README](./packages/services/README.md)
+
+## Package scripts
+
+### `yarn compile`
+
+Type-check all workspaces containing Typescript projects.

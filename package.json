@@ -4,9 +4,13 @@
   "author": "Louis Quinnell <zioroboco@gmail.com>",
   "private": true,
   "scripts": {
-    "format": "prettier --write *"
+    "format": "prettier --write *",
+    "foreach-tsconfig": "glob-exec --foreach 'packages/*/tsconfig.json'",
+    "compile-project": "tsc --noEmit --project",
+    "compile": "yarn foreach-tsconfig 'yarn compile-project {{file.dir}}'"
   },
   "dependencies": {
+    "glob-exec": "^0.1.1",
     "prettier": "^1.12.1",
     "typescript": "^2.8.3"
   },
