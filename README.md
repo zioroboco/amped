@@ -13,6 +13,7 @@ Amped is a jacked-up development environment for building and deploying front-en
   - [`yarn <workspace> <package-script>`](#yarn-workspace-package-script)
   - [`yarn compile`](#yarn-compile)
   - [`yarn test [--coverage]`](#yarn-test-coverage)
+  - [`yarn precommit`](#yarn-precommit)
 
 <!-- /TOC -->
 
@@ -61,3 +62,7 @@ Type-check all workspaces containing Typescript projects.
 ### `yarn test [--coverage]`
 
 Run tests across all workspaces, with optional coverage reporting.
+
+### `yarn precommit`
+
+Run the complete static analysis and testing pipeline. Should ensure that a branch will pass CI, provided that the working tree is clean.
