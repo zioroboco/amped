@@ -2,7 +2,9 @@
   "name": "@amped/components",
   "version": "0.1.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "storybook": "start-storybook --port 9001 --config-dir .storybook"
+  },
   "dependencies": {
     "@amped/types": "*",
     "@storybook/react": "^3.4.5",
