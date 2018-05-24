@@ -2,12 +2,12 @@
 // individual `jest.config.js` files, and can be extended there as required.
 
 module.exports = {
-  testMatch: ["<rootDir>/src/**/*.spec.ts"],
+  testMatch: ["<rootDir>/src/**/*.spec.{ts,tsx}"],
   transform: {
-    "^.+\\.ts$": "ts-jest"
+    "^.+\\.tsx?$": "ts-jest"
   },
   moduleNameMapper: {
     "\\@amped/(.*)": "<rootDir>/../$1/src"
   },
-  moduleFileExtensions: ["json", "js", "ts"]
+  moduleFileExtensions: ["json", "js", "ts", "jsx", "tsx"]
 }

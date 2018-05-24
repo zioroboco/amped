@@ -19,11 +19,11 @@ module.exports = wallaby => ({
     "jest.config.js",
     "tsconfig.json",
     "packages/*/src/**",
-    "!packages/**/*.spec.ts"
+    "!packages/**/*.spec.{ts,tsx}"
   ],
   tests: ["packages/**/*.spec.ts", "!packages/**/node_modules/**"],
   compilers: {
-    "**/*.ts": wallaby.compilers.typeScript({
+    "**/*.{ts,tsx}": wallaby.compilers.typeScript({
       typescript: require("typescript")
     })
   },
