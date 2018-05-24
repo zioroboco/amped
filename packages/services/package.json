@@ -2,8 +2,11 @@
   "name": "@amped/services",
   "version": "0.1.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "sls": "yarn serverless"
+  },
   "dependencies": {
-    "@amped/types": "*"
+    "@amped/types": "*",
+    "serverless": "^1.27.3"
   }
 }
