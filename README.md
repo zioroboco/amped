@@ -10,6 +10,7 @@ Amped is a jacked-up development environment for building and deploying front-en
   - [`@amped/services`](#ampedservices)
   - [`@amped/types`](#ampedtypes)
 - [Package scripts](#package-scripts)
+  - [`yarn <workspace> <package-script>`](#yarn-workspace-package-script)
   - [`yarn compile`](#yarn-compile)
   - [`yarn test [--coverage]`](#yarn-test-coverage)
 
@@ -48,6 +49,10 @@ This workspace contains type and interface delarations common to multiple parts 
 [README](./packages/types/README.md)
 
 ## Package scripts
+
+### `yarn <workspace> <package-script>`
+
+Shortcuts for running package scripts in the specified workspace.
 
 ### `yarn compile`
 

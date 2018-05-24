@@ -4,6 +4,10 @@
   "author": "Louis Quinnell <zioroboco@gmail.com>",
   "private": true,
   "scripts": {
+    "client": "yarn workspace @amped/client",
+    "components": "yarn workspace @amped/components",
+    "services": "yarn workspace @amped/services",
+    "types": "yarn workspace @amped/types",
     "test": "jest",
     "format": "prettier --write *",
     "foreach-tsconfig": "glob-exec --foreach 'packages/*/tsconfig.json'",
