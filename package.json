@@ -4,14 +4,19 @@
   "author": "Louis Quinnell <zioroboco@gmail.com>",
   "private": true,
   "scripts": {
+    "test": "jest",
     "format": "prettier --write *",
     "foreach-tsconfig": "glob-exec --foreach 'packages/*/tsconfig.json'",
     "compile-project": "tsc --noEmit --project",
     "compile": "yarn foreach-tsconfig 'yarn compile-project {{file.dir}}'"
   },
   "dependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/node": "^10.1.2",
     "glob-exec": "^0.1.1",
+    "jest": "^22.4.4",
     "prettier": "^1.12.1",
+    "ts-jest": "^22.4.6",
     "typescript": "^2.8.3"
   },
   "workspaces": [
