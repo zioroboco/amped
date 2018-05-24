@@ -13,6 +13,7 @@ Amped is a jacked-up development environment for building and deploying front-en
   - [`@amped/types`](#ampedtypes)
 - [Package scripts](#package-scripts)
   - [`yarn <workspace> <package-script>`](#yarn-workspace-package-script)
+  - [`yarn format`](#yarn-format)
   - [`yarn compile`](#yarn-compile)
   - [`yarn test [--coverage]`](#yarn-test-coverage)
   - [`yarn precommit`](#yarn-precommit)
@@ -56,6 +57,10 @@ This workspace contains type and interface delarations common to multiple parts 
 ### `yarn <workspace> <package-script>`
 
 Shortcuts for running package scripts in the specified workspace.
+
+### `yarn format`
+
+Use prettier to format all files not included in `.prettierignore`, automatically writing any changes.
 
 ### `yarn compile`
 
