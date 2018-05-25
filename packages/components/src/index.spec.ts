@@ -1,3 +1,5 @@
+import { thing } from "."
+
 it("works", () => {
-  expect(true).toBeTruthy()
+  expect(thing).toBe("working")
 })
