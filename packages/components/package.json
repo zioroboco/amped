@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "storybook-static": "build-storybook --output-dir .build",
     "storybook": "start-storybook --port 9001 --config-dir .storybook"
   },
   "dependencies": {
