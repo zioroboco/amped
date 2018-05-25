@@ -13,7 +13,7 @@
     "clean-css": "shx rm 'packages/*/src/**/*.css.d.ts' && yarn build-css",
     "precommit": "yarn format-ci && yarn compile && yarn test-ci",
     "test": "jest",
-    "test-ci": "jest --ci --coverage",
+    "test-ci": "jest --ci --no-cache --coverage",
     "format": "prettier --write *",
     "format-ci": "prettier --list-different *",
     "foreach-tsconfig": "glob-exec --foreach 'packages/*/tsconfig.json'",
