@@ -9,7 +9,7 @@
     "components": "yarn workspace @amped/components",
     "services": "yarn workspace @amped/services",
     "types": "yarn workspace @amped/types",
-    "build-css": "tcm --pattern 'packages/*/src/**/*.css' --camelCase",
+    "build-css": "tcm --pattern 'packages/*/src/**/!(global).css' --camelCase",
     "clean-css": "shx rm 'packages/*/src/**/*.css.d.ts' && yarn build-css",
     "precommit": "yarn format-ci && yarn compile && yarn test-ci",
     "test": "jest",
