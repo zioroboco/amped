@@ -1,4 +1,5 @@
 import * as React from "react"
+import * as styles from "./Example.css"
 
 type ExampleProps = {
   handler: () => void
@@ -6,7 +7,9 @@ type ExampleProps = {
 }
 
 const Example = (props: ExampleProps) => (
-  <button onClick={props.handler}>{props.label}</button>
+  <button className={styles.amazing} onClick={props.handler}>
+    {props.label}
+  </button>
 )
 
 export { Example }
