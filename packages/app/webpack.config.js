@@ -1,4 +1,5 @@
 const { HotModuleReplacementPlugin, NamedModulesPlugin } = require("webpack")
+const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
 
@@ -16,12 +17,13 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: ["react-hot-loader/webpack", "awesome-typescript-loader"],
-        include: path.join(__dirname, "src")
+        include: path.join(__dirname, "..")
       }
     ]
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"]
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    plugins: [new TsConfigPathsPlugin()]
   },
   devtool: "eval-source-map",
   output: {
