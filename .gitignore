@@ -1,5 +1,6 @@
 *.css.d.ts
 .build/
+.serverless/
 coverage/
 node_modules/
 yarn-debug.log*

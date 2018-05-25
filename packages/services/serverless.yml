@@ -10,8 +10,13 @@ provider:
 
 plugins:
   - serverless-finch
+  - serverless-webpack
 
 custom:
   client:
     bucketName: ${env:AMPED_APP_BUCKET}
     distributionFolder: ../app/.build
+  webpack:
+    webpackConfig: webpack.config.js
+    includeModules: true
+    packager: yarn
