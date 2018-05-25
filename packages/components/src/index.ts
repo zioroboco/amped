@@ -1,1 +1,1 @@
-export const thing = "working"
+export { Example } from "./Example"
