@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "deploy-app": "yarn sls client deploy --no-confirm",
     "sls": "dotenv -e ../../.env yarn -- serverless"
   },
   "dependencies": {
     "@amped/types": "*",
     "dotenv-cli": "^1.4.0",
-    "serverless": "^1.27.3"
+    "serverless": "^1.27.3",
+    "serverless-finch": "^2.1.2"
   }
 }

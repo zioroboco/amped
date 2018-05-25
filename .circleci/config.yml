@@ -23,3 +23,6 @@ jobs:
             JEST_JUNIT_OUTPUT: "reports/junit/results.xml"
       - store_test_results:
           path: reports/junit
+      - run:
+          name: deploy
+          command: yarn deploy
