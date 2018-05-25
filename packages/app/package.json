@@ -2,8 +2,21 @@
   "name": "@amped/app",
   "version": "0.1.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "dev": "webpack-dev-server"
+  },
   "dependencies": {
-    "@amped/types": "*"
+    "@amped/types": "*",
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
+    "@types/webpack-env": "^1.13.6",
+    "awesome-typescript-loader": "<5.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-hot-loader": "<4.0.0",
+    "typescript": "^2.8.3",
+    "webpack": "<4.0.0",
+    "webpack-dev-server": "<3.0.0"
   }
 }
