@@ -7,7 +7,7 @@ Amped is a jacked-up development environment for building and deploying front-en
 <!-- TOC -->
 
 - [Workspaces](#workspaces)
-  - [`@amped/client`](#ampedclient)
+  - [`@amped/app`](#ampedapp)
   - [`@amped/components`](#ampedcomponents)
   - [`@amped/services`](#ampedservices)
   - [`@amped/types`](#ampedtypes)
@@ -30,21 +30,21 @@ Monorepos allow teams to make atomic commits of related changes spanning multipl
 
 This repository contains the following workspaces:
 
-### `@amped/client`
+### `@amped/app`
 
 This workspace is responsible for building and deploying the client-side static Javascript app.
 
-[README](./packages/client/README.md)
+[README](./packages/app/README.md)
 
 ### `@amped/components`
 
-This workspace is responsible for providing (and testing!) the UI components used by `@amped/client`.
+This workspace is responsible for providing (and testing!) the UI components used by `@amped/app`.
 
 [README](./packages/components/README.md)
 
 ### `@amped/services`
 
-This workspace is responsible for defining and deploying the back-end services which provide data to `@amped/client`.
+This workspace is responsible for defining and deploying the back-end services which provide data to `@amped/app`.
 
 [README](./packages/services/README.md)
 
