@@ -20,3 +20,19 @@ custom:
     webpackConfig: webpack.config.js
     includeModules: true
     packager: yarn
+
+functions:
+  data:
+    handler: src/handler.handler
+    events:
+      - http:
+          path: /
+          method: GET
+          cors: true
+      - http:
+          path: /{any+}
+          method: GET
+          cors: true
+
+resources:
+  Description: Amped!

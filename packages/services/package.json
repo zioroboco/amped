@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@amped/types": "*",
+    "@types/aws-lambda": "^8.10.5",
     "dotenv-cli": "^1.4.0",
     "serverless": "^1.27.3",
     "serverless-finch": "^2.1.2",
