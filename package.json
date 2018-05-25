@@ -4,10 +4,13 @@
   "author": "Louis Quinnell <zioroboco@gmail.com>",
   "private": true,
   "scripts": {
+    "postinstall": "yarn build-css",
     "app": "yarn workspace @amped/app",
     "components": "yarn workspace @amped/components",
     "services": "yarn workspace @amped/services",
     "types": "yarn workspace @amped/types",
+    "build-css": "tcm --pattern 'packages/*/src/**/*.css' --camelCase",
+    "clean-css": "shx rm 'packages/*/src/**/*.css.d.ts' && yarn build-css",
     "precommit": "yarn format-ci && yarn compile && yarn test-ci",
     "test": "jest",
     "test-ci": "jest --ci --coverage",
@@ -21,10 +24,13 @@
     "@types/jest": "^22.2.3",
     "@types/node": "^10.1.2",
     "glob-exec": "^0.1.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.4",
     "jest-junit": "^4.0.0",
     "prettier": "^1.12.1",
+    "shx": "^0.2.2",
     "ts-jest": "^22.4.6",
+    "typed-css-modules": "^0.3.4",
     "typescript": "^2.8.3"
   },
   "workspaces": [

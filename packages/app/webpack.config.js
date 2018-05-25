@@ -18,6 +18,21 @@ module.exports = {
         test: /\.tsx?$/,
         use: ["react-hot-loader/webpack", "awesome-typescript-loader"],
         include: path.join(__dirname, "..")
+      },
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              namedExport: true,
+              camelCase: true,
+              localIdentName: "[name]__[local]__[hash:base64:5]"
+            }
+          }
+        ]
       }
     ]
   },

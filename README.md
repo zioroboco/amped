@@ -13,11 +13,14 @@ Amped is a jacked-up development environment for building and deploying front-en
   - [`@amped/types`](#ampedtypes)
 - [Package scripts](#package-scripts)
   - [`yarn <workspace> <package-script>`](#yarn-workspace-package-script)
+  - [`yarn build-css [--watch]`](#yarn-build-css-watch)
+  - [`yarn clean-css`](#yarn-clean-css)
   - [`yarn format`](#yarn-format)
   - [`yarn compile`](#yarn-compile)
   - [`yarn test [--coverage]`](#yarn-test-coverage)
   - [`yarn precommit`](#yarn-precommit)
-- [Project configuration](#project-configuration)
+- [Project config](#project-config)
+  - [Typed CSS modules](#typed-css-modules)
   - [Jest](#jest)
 
 <!-- /TOC -->
@@ -60,6 +63,14 @@ This workspace contains type and interface delarations common to multiple parts 
 
 Shortcuts for running package scripts in the specified workspace.
 
+### `yarn build-css [--watch]`
+
+Build type declarations for all CSS modules in the project.
+
+### `yarn clean-css`
+
+Clear and rebuild all CSS module type declarations.
+
 ### `yarn format`
 
 Use prettier to format all files not included in `.prettierignore`, automatically writing any changes.
@@ -76,7 +87,11 @@ Run tests across all workspaces, with optional coverage reporting.
 
 Run the complete static analysis and testing pipeline. Should ensure that a branch will pass CI, provided that the working tree is clean.
 
-## Project configuration
+## Project config
+
+### Typed CSS modules
+
+This project uses CSS modules with programatically generated type declarations. After new CSS classes are defined, the `build-css` script will parse them and generate Typescript types, which can then be imported into components in a type-safe manner. Since the content of these declarations is a function of the CSS modules, only the CSS files themselves are committed to version control.
 
 ### Jest
 

@@ -9,6 +9,21 @@ module.exports = (baseConfig, env) => {
       {
         test: /\.tsx?$/,
         loader: "awesome-typescript-loader"
+      },
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              namedExport: true,
+              camelCase: true,
+              localIdentName: "[name]__[local]"
+            }
+          }
+        ]
       }
     ]
   }

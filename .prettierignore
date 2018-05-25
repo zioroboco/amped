@@ -1,4 +1,5 @@
 *.md
+*.css.d.ts
 package.json
 node_modules/
 /yarn*
