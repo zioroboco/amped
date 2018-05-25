@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "sls": "yarn serverless"
+    "sls": "dotenv -e ../../.env yarn -- serverless"
   },
   "dependencies": {
     "@amped/types": "*",
+    "dotenv-cli": "^1.4.0",
     "serverless": "^1.27.3"
   }
 }
