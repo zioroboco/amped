@@ -9,6 +9,7 @@
     "@amped/types": "*",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
+    "@types/react-redux": "^6.0.0",
     "@types/webpack-env": "^1.13.6",
     "awesome-typescript-loader": "<5.0.0",
     "css-loader": "^0.28.11",
