@@ -26,3 +26,5 @@ jobs:
       - run:
           name: deploy
           command: yarn deploy
+          environment:
+            STAGE: prod

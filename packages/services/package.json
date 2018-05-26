@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "deploy": "yarn deploy-api && yarn deploy-app",
+    "deploy-api": "yarn sls deploy",
     "deploy-app": "yarn sls client deploy --no-confirm",
     "sls": "dotenv -e ../../.env yarn -- serverless"
   },

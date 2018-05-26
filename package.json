@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "postinstall": "yarn build-css",
-    "deploy": "yarn app build && yarn services deploy-app",
+    "deploy": "yarn app build && yarn services deploy",
     "app": "yarn workspace @amped/app",
     "components": "yarn workspace @amped/components",
     "services": "yarn workspace @amped/services",
