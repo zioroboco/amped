@@ -6,8 +6,9 @@ import { createStore } from "redux"
 import { reducer } from "./reducer"
 import { initialState } from "./store"
 import { App } from "./App"
+import thunk from "redux-thunk"
 
-const store = createStore(reducer, initialState)
+const store = createStore(reducer, initialState, applyMiddleware(thunk))
 
 const render = (AppRoot: typeof App) => {
   ReactDOM.render(
