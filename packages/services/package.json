@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "offline": "yarn sls offline start",
     "deploy": "yarn deploy-api && yarn deploy-app",
     "deploy-api": "yarn sls deploy",
     "deploy-app": "yarn sls client deploy --no-confirm",
@@ -15,6 +16,7 @@
     "dotenv-cli": "^1.4.0",
     "serverless": "^1.27.3",
     "serverless-finch": "^2.1.2",
+    "serverless-offline": "^3.23.1",
     "serverless-webpack": "^5.1.5",
     "ts-loader": "^4.3.0",
     "webpack": "^4.8.3"

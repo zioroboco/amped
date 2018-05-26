@@ -6,6 +6,7 @@ This workspace is responsible for defining and deploying the back-end services w
 
 - [Package scripts](#package-scripts)
   - [`yarn services sls`](#yarn-services-sls)
+  - [`yarn services offline`](#yarn-services-offline)
 
 <!-- /TOC -->
 
@@ -14,3 +15,7 @@ This workspace is responsible for defining and deploying the back-end services w
 ### `yarn services sls`
 
 Shortcut to an instance of Serverless Framework maintained as a package dependency.
+
+### `yarn services offline`
+
+Run the API locally at `localhost:3000` (default).
