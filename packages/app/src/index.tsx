@@ -22,5 +22,10 @@ const render = (AppRoot: typeof App) => {
 render(App)
 
 if (module.hot) {
-  module.hot.accept()
+  module.hot.accept("./App", () => {
+    render(App)
+  })
+  module.hot.accept("./reducer", () => {
+    store.replaceReducer(reducer)
+  })
 }
