@@ -1,5 +1,6 @@
 const { HotModuleReplacementPlugin, NamedModulesPlugin } = require("webpack")
 const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
+const DotEnv = require("dotenv-webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
 
@@ -54,6 +55,9 @@ module.exports = {
   plugins: [
     new HotModuleReplacementPlugin(),
     new NamedModulesPlugin(),
+    new DotEnv({
+      path: path.join(__dirname, "../../.env")
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "index.html")
     })

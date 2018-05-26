@@ -1,4 +1,5 @@
 const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
+const DotEnv = require("dotenv-webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
 
@@ -39,6 +40,9 @@ module.exports = {
     filename: "bundle.js"
   },
   plugins: [
+    new DotEnv({
+      path: path.join(__dirname, "../../.env")
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "index.html")
     })
