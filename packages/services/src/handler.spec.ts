@@ -1,6 +1,18 @@
 import { Handler, Context, Callback, APIGatewayEvent } from "aws-lambda"
-import { response, createHandler, keyFromPath } from "./handler"
+import { response, createHandler, keyFromPath, minifyJson } from "./handler"
 import { createS3DataRetriever, DataRetriever } from "./data"
+
+describe("json minification", () => {
+  it("minifies json", () => {
+    const verboseJson = `
+    {
+      "property": "value"
+    }
+    `
+    const minifiedJson = `{"property":"value"}`
+    expect(minifyJson(verboseJson)).toBe(minifiedJson)
+  })
+})
 
 const pathKeyPairs = [
   { path: "", key: "index.json" },
