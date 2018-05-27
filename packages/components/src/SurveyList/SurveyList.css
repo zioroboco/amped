@@ -1,0 +1,9 @@
+.root {
+  width: 100%;
+  display: grid;
+}
+
+.spinner {
+  text-align: center;
+  padding: 25px 0;
+}
