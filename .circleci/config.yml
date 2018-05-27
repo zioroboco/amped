@@ -8,23 +8,23 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install
+          name: Install
           command: yarn install
       - run:
-          name: format
+          name: Format
           command: yarn format-ci
       - run:
-          name: compile
+          name: Compile
           command: yarn compile
       - run:
-          name: test
+          name: Test
           command: yarn test-ci --runInBand --testResultsProcessor="jest-junit"
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/results.xml"
       - store_test_results:
           path: reports/junit
       - run:
-          name: deploy
+          name: Deploy
           command: yarn deploy
           environment:
             STAGE: prod
