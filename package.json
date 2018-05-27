@@ -5,6 +5,9 @@
   "private": true,
   "scripts": {
     "postinstall": "yarn build-css",
+    "dev": "yarn app dev",
+    "storybook": "yarn components storybook",
+    "offline": "yarn services offline",
     "deploy": "yarn app build && yarn services deploy",
     "app": "yarn workspace @amped/app",
     "components": "yarn workspace @amped/components",

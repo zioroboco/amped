@@ -13,6 +13,9 @@ Amped is a jacked-up development environment for building and deploying front-en
   - [`@amped/types`](#ampedtypes)
 - [Package scripts](#package-scripts)
   - [`yarn <workspace> <package-script>`](#yarn-workspace-package-script)
+  - [`yarn dev`](#yarn-dev)
+  - [`yarn storybook`](#yarn-storybook)
+  - [`yarn offline`](#yarn-offline)
   - [`yarn build-css [--watch]`](#yarn-build-css-watch)
   - [`yarn clean-css`](#yarn-clean-css)
   - [`yarn format`](#yarn-format)
@@ -62,6 +65,18 @@ This workspace contains type and interface delarations common to multiple parts 
 ### `yarn <workspace> <package-script>`
 
 Shortcuts for running package scripts in the specified workspace.
+
+### `yarn dev`
+
+Shortcut for `yarn app dev`, to run webpack dev server in the `@amped/app` workspace.
+
+### `yarn storybook`
+
+Shortcut for `yarn components storybook`, to run the storybook server in the `@amped/components` workspace.
+
+### `yarn offline`
+
+Shortcut for `yarn services offline`, to run an offline instance of the API described in the `@amped/services` workspace.
 
 ### `yarn build-css [--watch]`
 
