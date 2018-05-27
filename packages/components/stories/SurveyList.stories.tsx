@@ -36,10 +36,11 @@ storiesOf("SurveyList", module)
   })
 
   .add("With Summaries", () => {
+    const createExpandHandler = message => action(message)
     return (
       <SurveyList
-        state={{ detail: {}, summary }}
-        handleRequestDetailAtIndex={() => null}
+        state={{ details: {}, summary }}
+        handleRequestDetailAtIndex={createExpandHandler("Expanding")}
       />
     )
   })
