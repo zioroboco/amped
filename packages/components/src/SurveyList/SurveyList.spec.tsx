@@ -5,7 +5,7 @@ import { SurveyList } from "."
 const baseProps: SurveyListProps = {
   state: {
     summary: undefined,
-    detail: {}
+    details: {}
   },
   handleRequestDetailAtIndex: () => null
 }

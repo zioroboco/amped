@@ -3,7 +3,7 @@ import { SurveyResultList, SurveyResultDetail } from "./data"
 export type SurveyListProps = {
   state: {
     summary: SurveyResultList | undefined
-    detail: {
+    details: {
       [index: number]: SurveyResultDetail
     }
   }

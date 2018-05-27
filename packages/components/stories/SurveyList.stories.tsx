@@ -5,7 +5,7 @@ import { SurveyListProps, SurveyResultList } from "@amped/types"
 import { SurveyList } from "@amped/components"
 
 const props: SurveyListProps = {
-  state: { summary: undefined, detail: {} },
+  state: { summary: undefined, details: {} },
   handleRequestDetailAtIndex: () => null
 }
 
@@ -29,7 +29,7 @@ const summary: SurveyResultList = {
 storiesOf("SurveyList", module)
   .add("Loading...", () => {
     const props: SurveyListProps = {
-      state: { summary: undefined, detail: {} },
+      state: { summary: undefined, details: {} },
       handleRequestDetailAtIndex: () => null
     }
     return <SurveyList {...props} />
