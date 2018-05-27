@@ -1,9 +1,9 @@
 const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
 const DotEnv = require("dotenv-webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+const { DefinePlugin } = require("webpack")
 const path = require("path")
-
-const wdsConfig = { host: "localhost", port: 8080 }
 
 module.exports = {
   entry: [path.join(__dirname, "src/index.tsx")],
@@ -46,6 +46,10 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "index.html")
-    })
+    }),
+    new DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify("production")
+    }),
+    new UglifyJsPlugin()
   ]
 }
