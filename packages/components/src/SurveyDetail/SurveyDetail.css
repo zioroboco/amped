@@ -1,0 +1,27 @@
+.spinner {
+  margin-left: 20px;
+}
+
+.theme {
+  padding: 20px 0px;
+}
+
+.question {
+  padding: 20px 0px;
+}
+
+.questionDetail {
+  padding: 10px 0px;
+}
+
+.percentage {
+  font-weight: bold;
+}
+
+.responseCount {
+  color: grey;
+}
+
+.stat {
+  font-weight: bold;
+}

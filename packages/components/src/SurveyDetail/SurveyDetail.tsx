@@ -1,6 +1,94 @@
 import * as React from "react"
-import { SurveyResultDetail } from "@amped/types/src"
-import { CircularProgress } from "@material-ui/core"
+import {
+  SurveyResultDetail,
+  SurveyTheme,
+  SurveyQuestion,
+  SurveyQuestionResponse
+} from "@amped/types/src"
+import { Typography, CircularProgress } from "@material-ui/core"
+import * as styles from "./SurveyDetail.css"
+
+/** A list of a question's response frequencies and totals. */
+const QuestionSummary = ({ sums, total }) => {
+  return (
+    <ul>
+      {sums.map(
+        (sum, i) =>
+          sum ? (
+            <li key={i}>
+              {`${5 - i}: `}
+              <span className={styles.percentage}>
+                {`${Math.round(sum / total * 100)}%`}
+              </span>
+              {` `}
+              <span className={styles.responseCount}>
+                {`(${sum} response${sum > 1 ? "s" : ""})`}
+              </span>
+            </li>
+          ) : null
+      )}
+    </ul>
+  )
+}
+
+const Question = (props: SurveyQuestion) => {
+  const { description, survey_responses } = props
+
+  /** List of responses as numbers with empty values dropped. */
+  const cleanResponses: number[] = survey_responses
+    .map(response => response.response_content)
+    .filter(responseString => responseString)
+    .map(nonZeroReponseString => parseInt(nonZeroReponseString))
+
+  /** Possible answer values for questions. */
+  const values = [5, 4, 3, 2, 1]
+
+  /** The sum of question responses with a given value. */
+  const sumsOfResponseValues = values.map(
+    value => cleanResponses.filter(response => response === value).length
+  )
+
+  const totalNumberOfResponses = cleanResponses.length
+  const totalSumOfResponses = cleanResponses.reduce((total, n) => total + n, 0)
+
+  return (
+    <div className={styles.question}>
+      <Typography variant="headline">{description}</Typography>
+      <Typography variant="subheading">
+        <QuestionSummary
+          sums={sumsOfResponseValues}
+          total={totalNumberOfResponses}
+        />
+        <div>
+          <div>
+            {`Average response: `}
+            <span className={styles.stat}>
+              {`${Math.round(totalSumOfResponses / totalNumberOfResponses)}`}
+            </span>
+          </div>
+          <div>
+            {`Participation rate: `}
+            <span className={styles.stat}>
+              {`${Math.round(
+                totalNumberOfResponses / survey_responses.length * 100
+              )}%`}
+            </span>
+          </div>
+        </div>
+      </Typography>
+    </div>
+  )
+}
+
+const Theme = (props: SurveyTheme) => {
+  const { name, questions } = props
+  return (
+    <div className={styles.theme}>
+      <Typography variant="display1">{name}</Typography>
+      {questions.map((question, i) => <Question {...question} key={i} />)}
+    </div>
+  )
+}
 
 type SurveyDetailProps = { detail: {} | SurveyResultDetail | undefined }
 
@@ -11,14 +99,13 @@ const SurveyDetail = (props: SurveyDetailProps) => {
     props.detail["survey_result_detail"] === undefined
   ) {
     // Still waiting on the results...
-    return <CircularProgress />
+    return <CircularProgress className={styles.spinner} />
   }
 
   // The results are in!
   const detail = props.detail as SurveyResultDetail
-  return (
-    <div>{detail.survey_result_detail.submitted_response_count.toString()}</div>
-  )
+  const { themes } = detail.survey_result_detail
+  return <div>{themes.map((theme, i) => <Theme {...theme} key={i} />)}</div>
 }
 
 export { SurveyDetail, SurveyDetailProps }
