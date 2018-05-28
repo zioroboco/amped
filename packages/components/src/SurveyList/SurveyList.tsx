@@ -45,6 +45,8 @@ const SurveyElement = ({
 /** A list of survey result summaries, expandable with additional detail. */
 const SurveyList = (props: SurveyListProps) => {
   const { state, handleRequestDetailAtIndex } = props
+
+  // Choise of abstraction for the handler can be made in the context of the UI
   const makeExpandHandler = index => () => handleRequestDetailAtIndex(index)
 
   // Once the initial state has loaded...

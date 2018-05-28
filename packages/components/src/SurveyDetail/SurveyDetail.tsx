@@ -8,29 +8,56 @@ import {
 import { Typography, CircularProgress } from "@material-ui/core"
 import * as styles from "./SurveyDetail.css"
 
-/** A list of a question's response frequencies and totals. */
-const QuestionSummary = ({ sums, total }) => {
-  return (
-    <ul>
-      {sums.map(
-        (sum, i) =>
-          sum ? (
-            <li key={i}>
-              {`${5 - i}: `}
-              <span className={styles.percentage}>
-                {`${Math.round(sum / total * 100)}%`}
-              </span>
-              {` `}
-              <span className={styles.responseCount}>
-                {`(${sum} response${sum > 1 ? "s" : ""})`}
-              </span>
-            </li>
-          ) : null
-      )}
-    </ul>
-  )
-}
+/** A series of statistics about a question's responses in aggregate. */
+const QuestionStats = ({
+  totalSumOfResponses,
+  numberOfValidResponses,
+  numberOfOverallResponses
+}) => (
+  <div>
+    <div>
+      {`Average response: `}
+      <span className={styles.stat}>
+        {`${
+          numberOfValidResponses
+            ? (totalSumOfResponses / numberOfValidResponses).toFixed(1)
+            : "(none)"
+        }`}
+      </span>
+    </div>
+    <div>
+      {`Participation rate: `}
+      <span className={styles.stat}>
+        {`${Math.round(
+          numberOfValidResponses / numberOfOverallResponses * 100
+        )}%`}
+      </span>
+    </div>
+  </div>
+)
 
+/** A list of a question's response frequencies and totals. */
+const QuestionFrequencies = ({ sums, total }) => (
+  <ul>
+    {sums.map(
+      (sum, i) =>
+        sum ? (
+          <li key={i}>
+            {`${5 - i}: `}
+            <span className={styles.percentage}>
+              {`${Math.round(sum / total * 100)}%`}
+            </span>
+            {` `}
+            <span className={styles.responseCount}>
+              {`(${sum} response${sum > 1 ? "s" : ""})`}
+            </span>
+          </li>
+        ) : null
+    )}
+  </ul>
+)
+
+/** A detailed description of the results for a given question. */
 const Question = (props: SurveyQuestion) => {
   const { description, survey_responses } = props
 
@@ -48,38 +75,28 @@ const Question = (props: SurveyQuestion) => {
     value => cleanResponses.filter(response => response === value).length
   )
 
-  const totalNumberOfResponses = cleanResponses.length
+  const numberOfValidResponses = cleanResponses.length
   const totalSumOfResponses = cleanResponses.reduce((total, n) => total + n, 0)
 
   return (
     <div className={styles.question}>
       <Typography variant="headline">{description}</Typography>
       <Typography variant="subheading">
-        <QuestionSummary
+        <QuestionFrequencies
           sums={sumsOfResponseValues}
-          total={totalNumberOfResponses}
+          total={numberOfValidResponses}
         />
-        <div>
-          <div>
-            {`Average response: `}
-            <span className={styles.stat}>
-              {`${Math.round(totalSumOfResponses / totalNumberOfResponses)}`}
-            </span>
-          </div>
-          <div>
-            {`Participation rate: `}
-            <span className={styles.stat}>
-              {`${Math.round(
-                totalNumberOfResponses / survey_responses.length * 100
-              )}%`}
-            </span>
-          </div>
-        </div>
+        <QuestionStats
+          totalSumOfResponses={totalSumOfResponses}
+          numberOfValidResponses={numberOfValidResponses}
+          numberOfOverallResponses={survey_responses.length}
+        />
       </Typography>
     </div>
   )
 }
 
+/** A list of the detailed results of questions with a given theme. */
 const Theme = (props: SurveyTheme) => {
   const { name, questions } = props
   return (
