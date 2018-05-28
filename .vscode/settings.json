@@ -1,0 +1,9 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [80],
+  "editor.formatOnSave": true,
+  "tslint.autoFixOnSave": true,
+  "markdown-toc.depthFrom": 2
+}
