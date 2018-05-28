@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run:
           name: Install
-          command: yarn install
+          command: yarn install --frozen-lockfile
       - run:
           name: Format
           command: yarn format-ci
