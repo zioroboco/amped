@@ -7,6 +7,7 @@ module.exports = {
     "^.+\\.tsx?$": "ts-jest"
   },
   moduleNameMapper: {
+    // warning: these require equivalent mappers in the wallaby.js config
     "\\.css$": "identity-obj-proxy",
     "\\@amped/(.*)": "<rootDir>/../$1/src"
   },

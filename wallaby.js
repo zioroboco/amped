@@ -15,23 +15,21 @@ module.exports = wallaby => ({
     type: "node"
   },
   testFramework: "jest",
-  files: [
-    "jest.config.js",
-    "tsconfig.json",
-    "packages/*/src/**",
-    "!packages/**/*.spec.{ts,tsx}"
-  ],
-  tests: ["packages/**/*.spec.ts", "!packages/**/node_modules/**"],
+  files: ["packages/*/src/**", "!packages/**/*.spec.{ts,tsx}"],
+  tests: ["packages/**/*.spec.{ts,tsx}", "!packages/**/node_modules/**"],
   compilers: {
     "**/*.{ts,tsx}": wallaby.compilers.typeScript({
-      typescript: require("typescript")
+      typescript: require("typescript"),
+      module: "commonjs",
+      jsx: "react"
     })
   },
   setup: w => {
-    const jestConfig = require("./jest.config.js")
-    jestConfig.moduleNameMapper = {
-      "^@amped/(.+)": w.projectCacheDir + "/packages/$1/src"
-    }
-    w.testFramework.configure(jestConfig)
+    w.testFramework.configure({
+      moduleNameMapper: {
+        "\\.css$": require.resolve("identity-obj-proxy"),
+        "^@amped/(.+)": w.projectCacheDir + "/packages/$1/src"
+      }
+    })
   }
 })
