@@ -1,5 +1,5 @@
-const { HotModuleReplacementPlugin, NamedModulesPlugin } = require("webpack")
-const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
+const { HotModuleReplacementPlugin } = require("webpack")
+const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
 const DotEnv = require("dotenv-webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
@@ -7,30 +7,42 @@ const path = require("path")
 const wdsConfig = { host: "localhost", port: 8080 }
 
 module.exports = {
-  entry: [
-    "react-hot-loader/patch",
-    `webpack-dev-server/client?http://${wdsConfig.host}:${wdsConfig.port}`,
-    "webpack/hot/only-dev-server",
-    path.join(__dirname, "src/index.tsx")
-  ],
+  mode: "development",
+  entry: path.join(__dirname, "src/index.tsx"),
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ["react-hot-loader/webpack", "awesome-typescript-loader"],
-        include: path.join(__dirname, "..")
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              plugins: [
+                "babel-plugin-syntax-typescript",
+                "babel-plugin-syntax-decorators",
+                "babel-plugin-syntax-jsx",
+                "react-hot-loader/babel"
+              ]
+            }
+          },
+          {
+            loader: "ts-loader"
+          }
+        ]
       },
       {
         test: /\.css$/,
         use: [
-          "style-loader",
+          {
+            loader: "style-loader"
+          },
           {
             loader: "css-loader",
             options: {
               modules: true,
               namedExport: true,
               camelCase: true,
-              localIdentName: "[name]__[local]__[hash:base64:5]"
+              localIdentName: "[name]__[local]"
             }
           }
         ]
@@ -52,9 +64,11 @@ module.exports = {
     port: wdsConfig.port,
     hot: true
   },
+  optimization: {
+    namedModules: true
+  },
   plugins: [
     new HotModuleReplacementPlugin(),
-    new NamedModulesPlugin(),
     new DotEnv({
       path: path.join(__dirname, "../../.env")
     }),

@@ -1,4 +1,5 @@
 import * as React from "react"
+import { hot } from "react-hot-loader"
 import { connect, Dispatch } from "react-redux"
 import { asyncFetchDetail } from "./redux/actions"
 import { State } from "./redux/store"
@@ -25,6 +26,8 @@ const Container = (props: SurveyListProps & DispatchProps) => {
   return <SurveyList {...surveyListProps} />
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container)
+export default hot(module)(
+  connect(mapStateToProps, mapDispatchToProps)(Container)
+)
 
 export { Container }

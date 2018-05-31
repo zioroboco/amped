@@ -1,23 +1,38 @@
-const { TsConfigPathsPlugin } = require("awesome-typescript-loader")
+const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
 const DotEnv = require("dotenv-webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-const { DefinePlugin } = require("webpack")
 const path = require("path")
 
 module.exports = {
+  mode: "production",
   entry: [path.join(__dirname, "src/index.tsx")],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ["awesome-typescript-loader"],
-        include: path.join(__dirname, "..")
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              plugins: [
+                "babel-plugin-syntax-typescript",
+                "babel-plugin-syntax-decorators",
+                "babel-plugin-syntax-jsx"
+              ]
+            }
+          },
+          {
+            loader: "ts-loader"
+          }
+        ]
       },
       {
         test: /\.css$/,
         use: [
-          "style-loader",
+          {
+            loader: "style-loader"
+          },
           {
             loader: "css-loader",
             options: {
@@ -46,9 +61,6 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "index.html")
-    }),
-    new DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("production")
     }),
     new UglifyJsPlugin()
   ]
