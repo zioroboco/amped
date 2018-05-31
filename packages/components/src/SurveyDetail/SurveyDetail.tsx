@@ -4,7 +4,7 @@ import {
   SurveyTheme,
   SurveyQuestion,
   SurveyQuestionResponse
-} from "@amped/types/src"
+} from "@amped/types"
 import { Typography, CircularProgress } from "@material-ui/core"
 import * as styles from "./SurveyDetail.css"
 

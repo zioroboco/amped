@@ -1,7 +1,7 @@
 import { reducer } from "./reducer"
 import { State } from "./store"
 import { RECEIVE_SUMMARY, REQUEST_DETAIL, RECEIVE_DETAIL } from "./actions"
-import { SurveyResultDetail, SurveyResultList } from "@amped/types/src"
+import { SurveyResultDetail, SurveyResultList } from "@amped/types"
 
 describe("reducer base case", () => {
   it("returns the existing state", () => {
