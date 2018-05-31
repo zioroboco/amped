@@ -17,9 +17,7 @@ asyncFetchSummary()(store.dispatch)
 /** Renders the component tree into a hapless DOM node. */
 const render = AppRoot => {
   ReactDOM.render(
-    <Provider store={store}>
-      <AppRoot />
-    </Provider>,
+    React.createElement(Provider, { store }, React.createElement(AppRoot)),
     document.getElementById("root")
   )
 }

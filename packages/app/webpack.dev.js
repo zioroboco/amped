@@ -8,7 +8,7 @@ const wdsConfig = { host: "localhost", port: 8080 }
 
 module.exports = {
   mode: "development",
-  entry: path.join(__dirname, "src/index.tsx"),
+  entry: path.join(__dirname, "src/index.ts"),
   module: {
     rules: [
       {
