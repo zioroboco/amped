@@ -1,37 +1,49 @@
-const generateDefaultConfig = require("@storybook/react/dist/server/config/defaults/webpack.config.js")
-const appConfig = require("../../app/webpack.dev")
+const TsConfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
+const path = require("path")
 
-module.exports = (baseConfig, env) => {
-  const config = generateDefaultConfig(baseConfig, env)
-  config.resolve = appConfig.resolve
-  config.module = {
-    loaders: [
-      {
-        test: /\.tsx?$/,
-        loader: "awesome-typescript-loader"
-      },
-      {
-        test: /\.css$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              modules: true,
-              namedExport: true,
-              camelCase: true,
-              localIdentName: "[name]__[local]"
-            }
+module.exports = (baseConfig, env, defaultConfig) => {
+  defaultConfig.module.rules = [
+    {
+      test: /\.tsx?$/,
+      use: [
+        {
+          loader: "babel-loader",
+          options: {
+            plugins: [
+              "babel-plugin-syntax-typescript",
+              "babel-plugin-syntax-decorators",
+              "babel-plugin-syntax-jsx"
+            ]
           }
-        ]
-      }
-    ]
-  }
-  ;(config.devtool = appConfig.devtool),
-    Object.assign(config.output, {
-      devtoolModuleFilenameTemplate:
-        appConfig.output.devtoolModuleFilenameTemplate
+        },
+        {
+          loader: "ts-loader"
+        }
+      ]
+    },
+    {
+      test: /\.css$/,
+      use: [
+        {
+          loader: "style-loader"
+        },
+        {
+          loader: "css-loader",
+          options: {
+            modules: true,
+            namedExport: true,
+            camelCase: true,
+            localIdentName: "[name]__[local]"
+          }
+        }
+      ]
+    }
+  ]
+  defaultConfig.resolve.plugins = [
+    new TsConfigPathsPlugin({
+      configFile: path.resolve(__dirname, "../tsconfig.json")
     })
-
-  return config
+  ]
+  defaultConfig.resolve.extensions.push(".ts", ".tsx")
+  return defaultConfig
 }
