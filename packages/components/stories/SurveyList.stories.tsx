@@ -1,6 +1,5 @@
 import * as React from "react"
 import { storiesOf } from "@storybook/react"
-import { action } from "@storybook/addon-actions"
 import { SurveyListProps, SurveyResultList } from "@amped/types"
 import { SurveyList } from "@amped/components"
 
@@ -36,11 +35,11 @@ storiesOf("SurveyList", module)
   })
 
   .add("With Summaries", () => {
-    const createExpandHandler = message => action(message)
+    const handler = index => console.log(`Expanding ${index}`)
     return (
       <SurveyList
         state={{ details: {}, summary }}
-        handleRequestDetailAtIndex={createExpandHandler("Expanding")}
+        handleRequestDetailAtIndex={handler}
       />
     )
   })

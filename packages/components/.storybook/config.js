@@ -1,4 +1,7 @@
 import { configure } from "@storybook/react"
+import { setOptions } from "@storybook/addon-options"
+
+setOptions({ name: "amped", showAddonPanel: false })
 
 const importAll = stories =>
   stories.keys().forEach(filename => stories(filename))
