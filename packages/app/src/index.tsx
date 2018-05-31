@@ -5,16 +5,11 @@ import { createStore, applyMiddleware, Middleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 import { initialState } from "./redux/store"
 import { reducer } from "./redux/reducer"
-import thunk from "redux-thunk"
 import { asyncFetchSummary } from "./redux/actions"
 import Container from "./Container"
 
 /** The redux store. */
-const store = createStore(
-  reducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(thunk))
-)
+const store = createStore(reducer, initialState, composeWithDevTools())
 
 // Request the initial app state and dispatch to the store
 asyncFetchSummary()(store.dispatch)
