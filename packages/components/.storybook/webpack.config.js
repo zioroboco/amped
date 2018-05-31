@@ -39,6 +39,7 @@ module.exports = (baseConfig, env, defaultConfig) => {
       ]
     }
   ]
+  defaultConfig.devtool = "cheap-module-eval-source-map"
   defaultConfig.resolve.plugins = [
     new TsConfigPathsPlugin({
       configFile: path.resolve(__dirname, "../tsconfig.json")

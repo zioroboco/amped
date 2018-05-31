@@ -53,7 +53,7 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     plugins: [new TsConfigPathsPlugin()]
   },
-  devtool: "eval-source-map",
+  devtool: "cheap-module-eval-source-map",
   output: {
     devtoolModuleFilenameTemplate: "[absolute-resource-path]",
     path: path.join(__dirname, ".build"),
