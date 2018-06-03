@@ -5,7 +5,7 @@ import { SurveyDetail, SurveyDetailProps } from "."
 
 const expectedTheme = "test-theme"
 const expectedQuestion = "test-description"
-const expectedReponses = ["4:", "3:"]
+const expectedReponses = ["4", "3"]
 const expectedAverages = ["3.5", "(none)"]
 const expectedParticipationRates = ["100%", "0%"]
 
@@ -46,7 +46,7 @@ describe("detail of a survey result", () => {
 
   it("renders question response summaries", () => {
     expectedReponses.forEach(response =>
-      expect(container.getByText(response)).toBeTruthy()
+      expect(container.getByText(`${response}:`)).toBeTruthy()
     )
   })
 
