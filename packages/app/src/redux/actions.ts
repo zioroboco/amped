@@ -16,9 +16,12 @@ const RECEIVE_DETAIL = actionCreator<{
 }>("RECEIVE_DETAIL")
 
 /** Async action to fetch the summary data and then dispatch. */
-const asyncFetchSummary = () => {
+const asyncFetchSummary = (
+  endpointUrl = AMPED_API_ENDPOINT,
+  fetch = window.fetch
+) => {
   return dispatch =>
-    fetch(AMPED_API_ENDPOINT)
+    fetch(endpointUrl)
       .then(response => response.json(), error => console.error(error))
       .then(json => {
         dispatch(RECEIVE_SUMMARY(json as SurveyResultList))
@@ -26,10 +29,14 @@ const asyncFetchSummary = () => {
 }
 
 /** Async action to fetch detail data for a given index and then dispatch. */
-const asyncFetchDetail = (index: number) => {
+const asyncFetchDetail = (
+  index: number,
+  endpointUrl = AMPED_API_ENDPOINT,
+  fetch = window.fetch
+) => {
   return dispatch => {
     dispatch(REQUEST_DETAIL(index))
-    return fetch(`${AMPED_API_ENDPOINT}/${index}`)
+    return fetch(`${endpointUrl}/${index}`)
       .then(response => response.json(), error => console.error(error))
       .then(json =>
         dispatch(RECEIVE_DETAIL({ index, detail: json as SurveyResultDetail }))
