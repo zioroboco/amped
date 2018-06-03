@@ -3,13 +3,11 @@ export type SurveyResultList = {
 }
 
 export type SurveyResult = {
-  name: SurveyName
-  url: SurveyURL
+  name: string
+  url: string
   participant_count: number
   response_rate: number
 }
-
-export type SurveyName = string
 
 export type SurveyURL = string
 
@@ -21,27 +19,21 @@ export type SurveyResultDetail = {
 }
 
 export type SurveyTheme = {
-  name: SurveyThemeName
+  name: string
   questions: SurveyQuestion[]
 }
 
-export type SurveyThemeName = string
-
 export type SurveyQuestion = {
-  description: SurveyQuestionDescription
+  description: string
   question_type: "ratingquestion"
   survey_responses: SurveyQuestionResponse[]
 }
 
-export type SurveyQuestionDescription = string
-
 export type SurveyQuestionResponse = {
   id: number
   question_id: number
-  respondent_id: SurveyRespondant
-  response_content: "5" | "4"
+  respondent_id: number
+  response_content: ResponseContent
 }
-
-export type SurveyRespondant = number
 
 export type ResponseContent = "5" | "4" | "3" | "2" | "1" | "0" | ""
