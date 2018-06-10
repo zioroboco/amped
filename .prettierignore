@@ -1,5 +1,8 @@
 *.md
 *.css.d.ts
+.build/
+.serverless/
+/coverage
 package.json
 node_modules/
 /yarn*

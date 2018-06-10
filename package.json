@@ -18,8 +18,9 @@
     "precommit": "yarn format-ci && yarn compile && yarn test-ci",
     "test": "jest",
     "test-ci": "jest --ci --no-cache --coverage",
-    "format": "prettier --write *",
-    "format-ci": "prettier --list-different *",
+    "format-src": "prettier '**/*.{js,ts,tsx,css}'",
+    "format": "yarn format-src --write",
+    "format-ci": "yarn format-src --list-different",
     "foreach-tsconfig": "glob-exec --foreach 'packages/*/tsconfig.json'",
     "compile-project": "tsc --noEmit --project",
     "compile": "yarn foreach-tsconfig 'yarn compile-project {{file.dir}}'"
