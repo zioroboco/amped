@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["es6", "dom"],
-    "jsx": "react"
+    "lib": ["es6", "dom"]
   }
 }
