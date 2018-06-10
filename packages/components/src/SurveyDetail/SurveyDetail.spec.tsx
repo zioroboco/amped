@@ -1,7 +1,7 @@
 import * as React from "react"
 import { render } from "react-testing-library"
 import { SurveyResultDetail } from "@amped/types"
-import { SurveyDetail, SurveyDetailProps } from "."
+import { SurveyDetail } from "."
 
 const expectedTheme = "test-theme"
 const expectedQuestion = "test-description"
@@ -9,7 +9,7 @@ const expectedReponses = ["4", "3"]
 const expectedAverages = ["3.5", "(none)"]
 const expectedParticipationRates = ["100%", "0%"]
 
-const props: SurveyDetailProps = {
+const props = {
   detail: {
     survey_result_detail: {
       themes: [

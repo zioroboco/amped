@@ -1,30 +1,24 @@
 import * as React from "react"
-import { render, renderIntoDocument } from "react-testing-library"
-import { SurveyListProps, SurveyResult } from "@amped/types"
+import { renderIntoDocument, Simulate } from "react-testing-library"
+import { SurveyResult } from "@amped/types"
 import { SurveyList } from "."
 
-const makeSurveyResult = (name: string): SurveyResult => {
-  return {
-    name,
-    participant_count: 1,
-    response_rate: 1,
-    url: ""
-  }
-}
+const makeSurveyResult = (name: string): SurveyResult => ({
+  name,
+  participant_count: 1,
+  response_rate: 1,
+  url: ""
+})
 
-const makePropsWithSurveyResults = (
-  results: SurveyResult[]
-): SurveyListProps => {
-  return {
-    handleRequestDetailAtIndex: clickHandler,
-    state: {
-      details: {},
-      summary: {
-        survey_results: results
-      }
+const makePropsWithSurveyResults = (results: SurveyResult[]) => ({
+  handleRequestDetailAtIndex: clickHandler,
+  state: {
+    details: {},
+    summary: {
+      survey_results: results
     }
   }
-}
+})
 
 const clickHandler = jest.fn()
 
@@ -50,9 +44,10 @@ describe("entry in the list of survey summaries", () => {
   it("calls request detail handler when clicked", () => {
     const name = "test-name"
     const props = makePropsWithSurveyResults([makeSurveyResult(name)])
-    renderIntoDocument(<SurveyList {...props} />)
-      .getByText(name)
-      .click()
+    const surveyListItem = renderIntoDocument(
+      <SurveyList {...props} />
+    ).getByText(name)
+    Simulate.click(surveyListItem)
     expect(clickHandler).toHaveBeenCalled()
   })
 })

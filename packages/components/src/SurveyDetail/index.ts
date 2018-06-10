@@ -1,1 +1,1 @@
-export { SurveyDetail, SurveyDetailProps } from "./SurveyDetail"
+export { SurveyDetail } from "./SurveyDetail"

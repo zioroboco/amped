@@ -1,2 +1,2 @@
 export * from "./data"
-export * from "./interfaces"
+export { Components } from "./components"

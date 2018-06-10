@@ -7,89 +7,53 @@ import {
 } from "@amped/types"
 import { Typography, CircularProgress } from "@material-ui/core"
 import * as styles from "./SurveyDetail.css"
+import { uniq, filter, sum, length, sort, contains } from "ramda"
+import { ResponseFrequencies } from "./ResponseFrequencies"
+import { QuestionStats } from "./QuestionStats"
 
-/** A series of statistics about a question's responses in aggregate. */
-const QuestionStats = ({
-  totalSumOfResponses,
-  numberOfValidResponses,
-  numberOfOverallResponses
-}) => (
-  <div>
-    <div>
-      {`Average response: `}
-      <span className={styles.stat}>
-        {`${
-          numberOfValidResponses
-            ? (totalSumOfResponses / numberOfValidResponses).toFixed(1)
-            : "(none)"
-        }`}
-      </span>
-    </div>
-    <div>
-      {`Participation rate: `}
-      <span className={styles.stat}>
-        {`${Math.round(
-          numberOfValidResponses / numberOfOverallResponses * 100
-        )}%`}
-      </span>
-    </div>
-  </div>
-)
+/** List of question response values to be discarded. */
+const INVALID_RESPONSES = ["", "0"]
 
-/** A list of a question's response frequencies and totals. */
-const QuestionFrequencies = ({ sums, total }) => (
-  <ul>
-    {sums.map(
-      (sum, i) =>
-        sum ? (
-          <li key={i}>
-            {`${5 - i}: `}
-            <span className={styles.percentage}>
-              {`${Math.round(sum / total * 100)}%`}
-            </span>
-            {` `}
-            <span className={styles.responseCount}>
-              {`(${sum} response${sum > 1 ? "s" : ""})`}
-            </span>
-          </li>
-        ) : null
-    )}
-  </ul>
-)
+/** Maps a single answer category to its number of corresponding responses. */
+type Frequency = { category: number; count: number }
 
 /** A detailed description of the results for a given question. */
-const Question = (props: SurveyQuestion) => {
-  const { description, survey_responses } = props
+type Question = React.SFC<SurveyQuestion>
 
-  /** List of responses as numbers with empty values dropped. */
-  const cleanResponses: number[] = survey_responses
+const Question: Question = ({ description, survey_responses }) => {
+  /** The list of responses as returned from the API. */
+  const rawResponses = survey_responses
+
+  /** List of responses as integers with invalid values dropped. */
+  const cleanResponses: number[] = rawResponses
     .map(response => response.response_content)
-    .filter(responseString => responseString)
-    .map(nonZeroReponseString => parseInt(nonZeroReponseString))
+    .filter(responseString => !contains(responseString, INVALID_RESPONSES))
+    .map(validReponseString => parseInt(validReponseString))
 
-  /** Possible answer values for questions. */
-  const values = [5, 4, 3, 2, 1]
+  /** The sorted list of categories of received responses. */
+  const categories = sort((a, b) => b - a, uniq(cleanResponses))
 
-  /** The sum of question responses with a given value. */
-  const sumsOfResponseValues = values.map(
-    value => cleanResponses.filter(response => response === value).length
-  )
-
-  const numberOfValidResponses = cleanResponses.length
-  const totalSumOfResponses = cleanResponses.reduce((total, n) => total + n, 0)
+  /**
+   * List of response frequencies, mapping responses to the correponding number
+   * of answers counted with that response.
+   */
+  const responseFrequencies: Frequency[] = categories.map(category => ({
+    category,
+    count: length(filter(response => response === category, cleanResponses))
+  }))
 
   return (
     <div className={styles.question}>
       <Typography variant="headline">{description}</Typography>
       <Typography variant="subheading">
-        <QuestionFrequencies
-          sums={sumsOfResponseValues}
-          total={numberOfValidResponses}
+        <ResponseFrequencies
+          frequencies={responseFrequencies}
+          total={length(cleanResponses)}
         />
         <QuestionStats
-          totalSumOfResponses={totalSumOfResponses}
-          numberOfValidResponses={numberOfValidResponses}
-          numberOfOverallResponses={survey_responses.length}
+          totalResponseCount={length(rawResponses)}
+          validResponseCount={length(cleanResponses)}
+          sumOfResponses={sum(cleanResponses)}
         />
       </Typography>
     </div>
@@ -97,32 +61,39 @@ const Question = (props: SurveyQuestion) => {
 }
 
 /** A list of the detailed results of questions with a given theme. */
-const Theme = (props: SurveyTheme) => {
-  const { name, questions } = props
+type Theme = React.SFC<SurveyTheme>
+
+const Theme: Theme = ({ name, questions }) => {
+  const questionElements: JSX.Element[] = questions.map((question, i) => (
+    <Question {...question} key={i} />
+  ))
+
   return (
     <div className={styles.theme}>
       <Typography variant="display1">{name}</Typography>
-      {questions.map((question, i) => <Question {...question} key={i} />)}
+      {questionElements}
     </div>
   )
 }
 
-type SurveyDetailProps = { detail: {} | SurveyResultDetail | undefined }
+/** An panel with theme and question details for a given survey. */
+type SurveyDetail = React.SFC<{ detail: {} | SurveyResultDetail | undefined }>
 
-/** The contents of the expanded query detail panel. */
-const SurveyDetail = (props: SurveyDetailProps) => {
-  if (
-    props.detail === undefined ||
-    props.detail["survey_result_detail"] === undefined
-  ) {
-    // Still waiting on the results...
+const SurveyDetail: SurveyDetail = ({ detail }) => {
+  // Render a spinner while we're waiting for data...
+  if (detail === undefined || detail["survey_result_detail"] === undefined) {
     return <CircularProgress className={styles.spinner} />
   }
 
-  // The results are in!
-  const detail = props.detail as SurveyResultDetail
-  const { themes } = detail.survey_result_detail
-  return <div>{themes.map((theme, i) => <Theme {...theme} key={i} />)}</div>
+  // The results are in...
+  const { themes } = (detail as SurveyResultDetail).survey_result_detail
+
+  // Return a list of theme elements
+  const themeElements: JSX.Element[] = themes.map((theme, i) => (
+    <Theme {...theme} key={i} />
+  ))
+
+  return <div>{themeElements}</div>
 }
 
-export { SurveyDetail, SurveyDetailProps }
+export { SurveyDetail, Frequency }

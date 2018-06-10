@@ -1,3 +1,3 @@
 import "./global.css"
-export { SurveyList, SurveyListProps } from "./SurveyList"
-export { SurveyDetail, SurveyDetailProps } from "./SurveyDetail"
+export { SurveyList } from "./SurveyList"
+export { SurveyDetail } from "./SurveyDetail"
