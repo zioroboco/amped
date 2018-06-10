@@ -1,2 +1,2 @@
-export * from "./data"
+export { Data } from "./data"
 export { Components } from "./components"

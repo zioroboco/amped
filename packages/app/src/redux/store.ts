@@ -1,10 +1,10 @@
-import { SurveyResultList, SurveyResultDetail } from "@amped/types"
+import { Data } from "@amped/types"
 
 /** Shape of the store object. */
 type State = {
-  readonly summary: SurveyResultList | undefined
+  readonly summary: Data.SurveyResultList | undefined
   readonly details: {
-    readonly [index: number]: SurveyResultDetail | {}
+    readonly [index: number]: Data.SurveyResultDetail | {}
   }
 }
 

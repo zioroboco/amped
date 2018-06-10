@@ -1,6 +1,5 @@
 import { Reducer } from "redux"
 import { State, initialState } from "./store"
-import { SurveyResultList } from "@amped/types"
 import { isType } from "typescript-fsa"
 import { RECEIVE_SUMMARY, REQUEST_DETAIL, RECEIVE_DETAIL } from "./actions"
 

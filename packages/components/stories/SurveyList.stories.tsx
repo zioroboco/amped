@@ -1,10 +1,10 @@
 import * as React from "react"
 import { storiesOf } from "@storybook/react"
-import { SurveyResultList } from "@amped/types"
+import { Data } from "@amped/types"
 import { SurveyList } from "@amped/components"
 import { detail } from "./SurveyDetail.stories"
 
-const summary: SurveyResultList = {
+const summary: Data.SurveyResultList = {
   survey_results: [
     {
       name: "Basic Existentialism",

@@ -1,9 +1,9 @@
 import * as React from "react"
 import { storiesOf } from "@storybook/react"
-import { SurveyResultDetail } from "@amped/types"
+import { Data } from "@amped/types"
 import { SurveyDetail } from "@amped/components"
 
-export const detail: SurveyResultDetail = {
+export const detail: Data.SurveyResultDetail = {
   survey_result_detail: {
     name: "Basic Existentialism",
     participant_count: 2,

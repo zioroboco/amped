@@ -1,16 +1,16 @@
 import * as React from "react"
 import { renderIntoDocument, Simulate } from "react-testing-library"
-import { SurveyResult } from "@amped/types"
+import { Data } from "@amped/types"
 import { SurveyList } from "."
 
-const makeSurveyResult = (name: string): SurveyResult => ({
+const makeSurveyResult = (name: string): Data.SurveyResult => ({
   name,
   participant_count: 1,
   response_rate: 1,
   url: ""
 })
 
-const makePropsWithSurveyResults = (results: SurveyResult[]) => ({
+const makePropsWithSurveyResults = (results: Data.SurveyResult[]) => ({
   handleRequestDetailAtIndex: clickHandler,
   state: {
     details: {},

@@ -5,7 +5,7 @@ import {
   RECEIVE_SUMMARY,
   REQUEST_DETAIL
 } from "./actions"
-import { SurveyResultList, SurveyResultDetail } from "@amped/types"
+import { Data } from "@amped/types"
 
 const endpoint = "test-endpoint"
 const fetch = jest.fn()
@@ -14,7 +14,7 @@ const dispatch = jest.fn()
 afterEach(() => jest.resetAllMocks())
 
 describe("async fetch summary action", () => {
-  const surveyResultList = { survey_results: [] } as SurveyResultList
+  const surveyResultList = { survey_results: [] } as Data.SurveyResultList
 
   beforeEach(() => {
     fetch.mockImplementation(
@@ -37,7 +37,7 @@ describe("async fetch summary action", () => {
 })
 
 describe("async fetch detail action", () => {
-  const surveyDetail = { survey_result_detail: {} } as SurveyResultDetail
+  const surveyDetail = { survey_result_detail: {} } as Data.SurveyResultDetail
   const indices = [1, 2]
 
   beforeEach(() => {

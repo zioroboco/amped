@@ -1,10 +1,5 @@
 import * as React from "react"
-import {
-  SurveyResultDetail,
-  SurveyTheme,
-  SurveyQuestion,
-  SurveyQuestionResponse
-} from "@amped/types"
+import { Data } from "@amped/types"
 import { Typography, CircularProgress } from "@material-ui/core"
 import * as styles from "./SurveyDetail.css"
 import { uniq, filter, sum, length, sort, contains } from "ramda"
@@ -18,7 +13,7 @@ const INVALID_RESPONSES = ["", "0"]
 type Frequency = { category: number; count: number }
 
 /** A detailed description of the results for a given question. */
-type Question = React.SFC<SurveyQuestion>
+type Question = React.SFC<Data.SurveyQuestion>
 
 const Question: Question = ({ description, survey_responses }) => {
   /** The list of responses as returned from the API. */
@@ -61,7 +56,7 @@ const Question: Question = ({ description, survey_responses }) => {
 }
 
 /** A list of the detailed results of questions with a given theme. */
-type Theme = React.SFC<SurveyTheme>
+type Theme = React.SFC<Data.SurveyTheme>
 
 const Theme: Theme = ({ name, questions }) => {
   const questionElements: JSX.Element[] = questions.map((question, i) => (
@@ -77,7 +72,9 @@ const Theme: Theme = ({ name, questions }) => {
 }
 
 /** An panel with theme and question details for a given survey. */
-type SurveyDetail = React.SFC<{ detail: {} | SurveyResultDetail | undefined }>
+type SurveyDetail = React.SFC<{
+  detail: {} | Data.SurveyResultDetail | undefined
+}>
 
 const SurveyDetail: SurveyDetail = ({ detail }) => {
   // Render a spinner while we're waiting for data...
@@ -86,7 +83,7 @@ const SurveyDetail: SurveyDetail = ({ detail }) => {
   }
 
   // The results are in...
-  const { themes } = (detail as SurveyResultDetail).survey_result_detail
+  const { themes } = (detail as Data.SurveyResultDetail).survey_result_detail
 
   // Return a list of theme elements
   const themeElements: JSX.Element[] = themes.map((theme, i) => (

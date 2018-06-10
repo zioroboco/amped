@@ -1,4 +1,4 @@
-import { SurveyResultList, SurveyResultDetail } from "@amped/types"
+import { Data } from "@amped/types"
 import { State } from "./store"
 import { Action, ActionCreator, Dispatch } from "redux"
 import { actionCreatorFactory } from "typescript-fsa"
@@ -8,11 +8,11 @@ const { AMPED_API_ENDPOINT } = process.env
 
 // Type-safe flux-standard-action creators
 const actionCreator = actionCreatorFactory()
-const RECEIVE_SUMMARY = actionCreator<SurveyResultList>("RECEIVE_SUMMARY")
+const RECEIVE_SUMMARY = actionCreator<Data.SurveyResultList>("RECEIVE_SUMMARY")
 const REQUEST_DETAIL = actionCreator<number>("REQUEST_DETAIL")
 const RECEIVE_DETAIL = actionCreator<{
   index: number
-  detail: SurveyResultDetail
+  detail: Data.SurveyResultDetail
 }>("RECEIVE_DETAIL")
 
 /** Async action to fetch the summary data and then dispatch. */
@@ -24,7 +24,7 @@ const asyncFetchSummary = (
     fetch(endpointUrl)
       .then(response => response.json(), error => console.error(error))
       .then(json => {
-        dispatch(RECEIVE_SUMMARY(json as SurveyResultList))
+        dispatch(RECEIVE_SUMMARY(json as Data.SurveyResultList))
       })
 }
 
@@ -39,7 +39,9 @@ const asyncFetchDetail = (
     return fetch(`${endpointUrl}/${index}`)
       .then(response => response.json(), error => console.error(error))
       .then(json =>
-        dispatch(RECEIVE_DETAIL({ index, detail: json as SurveyResultDetail }))
+        dispatch(
+          RECEIVE_DETAIL({ index, detail: json as Data.SurveyResultDetail })
+        )
       )
   }
 }

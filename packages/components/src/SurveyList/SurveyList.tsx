@@ -1,10 +1,5 @@
 import * as React from "react"
-import {
-  Components,
-  SurveyResultList,
-  SurveyResult,
-  SurveyResultDetail
-} from "@amped/types"
+import { Components, Data } from "@amped/types"
 import {
   Typography,
   CircularProgress,
@@ -24,8 +19,8 @@ const DATA_INDEX_OFFSET = 1
 
 /** An individual survey result's summary with optional expanded detail. */
 type SurveyElement = React.SFC<{
-  surveyResult: SurveyResult
-  surveyDetail: {} | SurveyResultDetail | undefined
+  surveyResult: Data.SurveyResult
+  surveyDetail: {} | Data.SurveyResultDetail | undefined
   index: number
   handleExpand: () => void
 }>
