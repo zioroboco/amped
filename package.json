@@ -27,11 +27,13 @@
   "dependencies": {
     "@types/jest": "^22.2.3",
     "@types/node": "^10.1.2",
+    "@types/ramda": "types/npm-ramda#dist",
     "glob-exec": "^0.1.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.4",
     "jest-junit": "^4.0.0",
     "prettier": "^1.12.1",
+    "ramda": "^0.25.0",
     "shx": "^0.2.2",
     "ts-jest": "^22.4.6",
     "typed-css-modules": "^0.3.4",
