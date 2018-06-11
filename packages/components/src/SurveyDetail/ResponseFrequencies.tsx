@@ -3,9 +3,6 @@ import * as styles from "./SurveyDetail.css"
 import { FrequencyMap } from "./SurveyDetail"
 import { toPairs } from "ramda"
 
-/** Tuple representing a single answer category and its number of responses. */
-type Frequency = [number, number]
-
 /** The percentage of total responses which were in a particular category. */
 type PercentageOfResponses = React.SFC<{ count: number; total: number }>
 
@@ -28,16 +25,23 @@ const NumberOfResponses: NumberOfResponses = ({ count }) => (
 )
 
 /** The response frequency list item corresponding to a single response. */
-type FrequencyListItem = React.SFC<{ frequency: Frequency; total: number }>
+type FrequencyListItem = React.SFC<{
+  responseCategory: string
+  responseCount: number
+  totalResponseCount: number
+}>
 
-const FrequencyListItem: FrequencyListItem = ({ frequency, total }) => {
-  const [category, count] = frequency
+const FrequencyListItem: FrequencyListItem = ({
+  responseCategory,
+  responseCount,
+  totalResponseCount
+}) => {
   return (
-    <li key={category}>
-      {`${category}: `}
-      <PercentageOfResponses count={count} total={total} />
+    <li key={responseCategory}>
+      {`${responseCategory}: `}
+      <PercentageOfResponses count={responseCount} total={totalResponseCount} />
       {` `}
-      <NumberOfResponses count={count} />
+      <NumberOfResponses count={responseCount} />
     </li>
   )
 }
@@ -45,14 +49,24 @@ const FrequencyListItem: FrequencyListItem = ({ frequency, total }) => {
 /** A list of the frequencies at which different responses were recorded. */
 type ResponseFrequencies = React.SFC<{
   frequencies: FrequencyMap
-  total: number
+  totalResponseCount: number
 }>
 
-const ResponseFrequencies: ResponseFrequencies = ({ frequencies, total }) => {
+const ResponseFrequencies: ResponseFrequencies = ({
+  frequencies,
+  totalResponseCount
+}) => {
   const frequencyListItems = toPairs(frequencies)
-    .sort(([a], [b]) => b - a)
-    .map((frequency, i) => (
-      <FrequencyListItem frequency={frequency} total={total} key={i} />
+    // warning: relies on JS coercion of string arguments to the < operator
+    .sort(([catA], [catB]) => (catA < catB ? 1 : -1))
+    .filter(([category, count]) => count > 0)
+    .map(([category, count], i) => (
+      <FrequencyListItem
+        responseCategory={category}
+        responseCount={count}
+        totalResponseCount={totalResponseCount}
+        key={i}
+      />
     ))
   return <ul>{frequencyListItems}</ul>
 }

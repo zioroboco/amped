@@ -2,31 +2,39 @@ import * as React from "react"
 import { Data } from "@amped/types"
 import { Typography, CircularProgress } from "@material-ui/core"
 import * as styles from "./SurveyDetail.css"
-import { uniq, filter, sum, length, sort, contains, reduce } from "ramda"
+import { filter, sum, length, sort, contains, reduce, map } from "ramda"
 import { ResponseFrequencies } from "./ResponseFrequencies"
 import { QuestionStats } from "./QuestionStats"
 
-/** List of question response values to be discarded. */
-const INVALID_RESPONSES = ["", "0"]
+/** List of valid response categories. Could be returned from the API. */
+const VALID_RESPONSES = ["5", "4", "3", "2", "1"]
 
 /** Maps answer categories to their number of corresponding responses. */
-type FrequencyMap = { [category: number]: number }
+type FrequencyMap = { [category: string]: number }
 
 /** A detailed description of the results for a given question. */
-type Question = React.SFC<Data.SurveyQuestion>
+type Question = React.SFC<
+  Data.SurveyQuestion & { responseCategories?: string[] }
+>
 
-const Question: Question = ({ description, survey_responses }) => {
+const Question: Question = ({
+  description,
+  survey_responses,
+  responseCategories = VALID_RESPONSES
+}) => {
   /** The list of responses as returned from the API. */
   const rawResponses = survey_responses
 
   /** List of responses as integers with invalid values dropped. */
-  const cleanResponses: number[] = rawResponses
+  const cleanResponses: string[] = rawResponses
     .map(response => response.response_content)
-    .filter(responseString => !contains(responseString, INVALID_RESPONSES))
-    .map(validReponseString => parseInt(validReponseString))
+    .filter(responseString => contains(responseString, responseCategories))
 
-  /** The categories and their responses reduced to a FrequencyMap object. */
-  const frequencies: FrequencyMap = reduce<number, FrequencyMap>(
+  /**
+   * The response categories and corresponding response counts reduced to a
+   * FrequencyMap object.
+   */
+  const frequencies: FrequencyMap = reduce<string, FrequencyMap>(
     (frequencies, category) => ({
       ...frequencies,
       [category]: length(
@@ -34,7 +42,7 @@ const Question: Question = ({ description, survey_responses }) => {
       )
     }),
     {} as FrequencyMap,
-    uniq(cleanResponses)
+    responseCategories
   )
 
   return (
@@ -43,12 +51,12 @@ const Question: Question = ({ description, survey_responses }) => {
       <Typography variant="subheading">
         <ResponseFrequencies
           frequencies={frequencies}
-          total={length(cleanResponses)}
+          totalResponseCount={length(cleanResponses)}
         />
         <QuestionStats
           totalResponseCount={length(rawResponses)}
           validResponseCount={length(cleanResponses)}
-          sumOfResponses={sum(cleanResponses)}
+          sumOfResponses={sum(map(parseInt, cleanResponses))}
         />
       </Typography>
     </div>
