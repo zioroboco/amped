@@ -9,8 +9,11 @@ import { QuestionStats } from "./QuestionStats"
 /** List of question response values to be discarded. */
 const INVALID_RESPONSES = ["", "0"]
 
+type Category = number
+type Count = number
+
 /** Maps a single answer category to its number of corresponding responses. */
-type Frequency = { category: number; count: number }
+type Frequency = [Category, Count]
 
 /** A detailed description of the results for a given question. */
 type Question = React.SFC<Data.SurveyQuestion>
@@ -32,10 +35,12 @@ const Question: Question = ({ description, survey_responses }) => {
    * List of response frequencies, mapping responses to the correponding number
    * of answers counted with that response.
    */
-  const responseFrequencies: Frequency[] = categories.map(category => ({
-    category,
-    count: length(filter(response => response === category, cleanResponses))
-  }))
+  const responseFrequencies: Frequency[] = categories.map(
+    (category): Frequency => [
+      category,
+      cleanResponses.filter(response => response === category).length
+    ]
+  )
 
   return (
     <div className={styles.question}>

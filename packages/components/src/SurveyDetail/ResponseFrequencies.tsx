@@ -24,16 +24,19 @@ const NumberOfResponses: NumberOfResponses = ({ count }) => (
 )
 
 /** The response frequency list item corresponding to a single response. */
-type FrequencyListItem = React.SFC<Frequency & { total: number }>
+type FrequencyListItem = React.SFC<{ frequency: Frequency; total: number }>
 
-const FrequencyListItem: FrequencyListItem = ({ category, count, total }) => (
-  <li key={category}>
-    {`${category}: `}
-    <PercentageOfResponses count={count} total={total} />
-    {` `}
-    <NumberOfResponses count={count} />
-  </li>
-)
+const FrequencyListItem: FrequencyListItem = ({ frequency, total }) => {
+  const [category, count] = frequency
+  return (
+    <li key={category}>
+      {`${category}: `}
+      <PercentageOfResponses count={count} total={total} />
+      {` `}
+      <NumberOfResponses count={count} />
+    </li>
+  )
+}
 
 /** A list of the frequencies at which different responses were recorded. */
 type ResponseFrequencies = React.SFC<{
@@ -43,14 +46,9 @@ type ResponseFrequencies = React.SFC<{
 
 const ResponseFrequencies: ResponseFrequencies = ({ frequencies, total }) => {
   const frequencyListItems = (frequencies: Frequency[]) =>
-    frequencies.map(({ category, count }, i) => (
-      <FrequencyListItem
-        category={category}
-        count={count}
-        total={total}
-        key={i}
-      />
-    ))
+    frequencies.map((frequency, i) => {
+      return <FrequencyListItem frequency={frequency} total={total} key={i} />
+    })
   return <ul>{frequencyListItems(frequencies)}</ul>
 }
 
