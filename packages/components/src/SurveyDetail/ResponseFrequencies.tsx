@@ -1,6 +1,10 @@
 import * as React from "react"
 import * as styles from "./SurveyDetail.css"
-import { Frequency } from "./SurveyDetail"
+import { FrequencyMap } from "./SurveyDetail"
+import { toPairs } from "ramda"
+
+/** Tuple representing a single answer category and its number of responses. */
+type Frequency = [number, number]
 
 /** The percentage of total responses which were in a particular category. */
 type PercentageOfResponses = React.SFC<{ count: number; total: number }>
@@ -40,16 +44,17 @@ const FrequencyListItem: FrequencyListItem = ({ frequency, total }) => {
 
 /** A list of the frequencies at which different responses were recorded. */
 type ResponseFrequencies = React.SFC<{
-  frequencies: Frequency[]
+  frequencies: FrequencyMap
   total: number
 }>
 
 const ResponseFrequencies: ResponseFrequencies = ({ frequencies, total }) => {
-  const frequencyListItems = (frequencies: Frequency[]) =>
-    frequencies.map((frequency, i) => {
-      return <FrequencyListItem frequency={frequency} total={total} key={i} />
-    })
-  return <ul>{frequencyListItems(frequencies)}</ul>
+  const frequencyListItems = toPairs(frequencies)
+    .sort(([a], [b]) => b - a)
+    .map((frequency, i) => (
+      <FrequencyListItem frequency={frequency} total={total} key={i} />
+    ))
+  return <ul>{frequencyListItems}</ul>
 }
 
 export { ResponseFrequencies }

@@ -2,18 +2,15 @@ import * as React from "react"
 import { Data } from "@amped/types"
 import { Typography, CircularProgress } from "@material-ui/core"
 import * as styles from "./SurveyDetail.css"
-import { uniq, filter, sum, length, sort, contains } from "ramda"
+import { uniq, filter, sum, length, sort, contains, reduce } from "ramda"
 import { ResponseFrequencies } from "./ResponseFrequencies"
 import { QuestionStats } from "./QuestionStats"
 
 /** List of question response values to be discarded. */
 const INVALID_RESPONSES = ["", "0"]
 
-type Category = number
-type Count = number
-
-/** Maps a single answer category to its number of corresponding responses. */
-type Frequency = [Category, Count]
+/** Maps answer categories to their number of corresponding responses. */
+type FrequencyMap = { [category: number]: number }
 
 /** A detailed description of the results for a given question. */
 type Question = React.SFC<Data.SurveyQuestion>
@@ -28,18 +25,16 @@ const Question: Question = ({ description, survey_responses }) => {
     .filter(responseString => !contains(responseString, INVALID_RESPONSES))
     .map(validReponseString => parseInt(validReponseString))
 
-  /** The sorted list of categories of received responses. */
-  const categories = sort((a, b) => b - a, uniq(cleanResponses))
-
-  /**
-   * List of response frequencies, mapping responses to the correponding number
-   * of answers counted with that response.
-   */
-  const responseFrequencies: Frequency[] = categories.map(
-    (category): Frequency => [
-      category,
-      cleanResponses.filter(response => response === category).length
-    ]
+  /** The categories and their responses reduced to a FrequencyMap object. */
+  const frequencies: FrequencyMap = reduce<number, FrequencyMap>(
+    (frequencies, category) => ({
+      ...frequencies,
+      [category]: length(
+        cleanResponses.filter(response => response === category)
+      )
+    }),
+    {} as FrequencyMap,
+    uniq(cleanResponses)
   )
 
   return (
@@ -47,7 +42,7 @@ const Question: Question = ({ description, survey_responses }) => {
       <Typography variant="headline">{description}</Typography>
       <Typography variant="subheading">
         <ResponseFrequencies
-          frequencies={responseFrequencies}
+          frequencies={frequencies}
           total={length(cleanResponses)}
         />
         <QuestionStats
@@ -98,4 +93,4 @@ const SurveyDetail: SurveyDetail = ({ detail }) => {
   return <div>{themeElements}</div>
 }
 
-export { SurveyDetail, Frequency }
+export { SurveyDetail, FrequencyMap }
