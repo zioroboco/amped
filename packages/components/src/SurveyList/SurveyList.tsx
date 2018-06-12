@@ -1,14 +1,7 @@
 import * as React from "react"
 import { Components, Data } from "@amped/types"
-import {
-  Typography,
-  CircularProgress,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails
-} from "@material-ui/core"
-import { ExpandMore } from "@material-ui/icons"
-import { SurveyDetail } from "@amped/components"
+import { CircularProgress } from "@material-ui/core"
+import { SurveyListElement, SurveyDetail } from "@amped/components"
 import * as styles from "./SurveyList.css"
 
 /**
@@ -16,32 +9,6 @@ import * as styles from "./SurveyList.css"
  * counting survey data items starting at 1.
  */
 const DATA_INDEX_OFFSET = 1
-
-/** An individual survey result's summary with optional expanded detail. */
-type SurveyElement = React.SFC<{
-  surveyResult: Data.SurveyResult
-  surveyDetail: {} | Data.SurveyResultDetail | undefined
-  index: number
-  handleExpand: () => void
-}>
-
-const SurveyElement: SurveyElement = ({
-  surveyResult,
-  surveyDetail,
-  index,
-  handleExpand
-}) => {
-  return (
-    <ExpansionPanel key={index} onChange={handleExpand}>
-      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-        <Typography variant="title">{surveyResult.name}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <SurveyDetail detail={surveyDetail} />
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
-  )
-}
 
 /** A list of survey result summaries, expandable with additional detail. */
 const SurveyList: Components.SurveyList = ({
@@ -67,7 +34,7 @@ const SurveyList: Components.SurveyList = ({
     const surveyDetail =
       state.details && index in state.details ? state.details[index] : undefined
     return (
-      <SurveyElement
+      <SurveyListElement
         handleExpand={makeExpandHandler(index)}
         surveyResult={surveyResult}
         surveyDetail={surveyDetail}
