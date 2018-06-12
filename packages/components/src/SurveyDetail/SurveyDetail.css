@@ -25,3 +25,7 @@
 .stat {
   font-weight: bold;
 }
+
+.toggleSort {
+  margin-top: 20px !important;
+}
