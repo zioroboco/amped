@@ -13,14 +13,13 @@ import { SurveyDetail } from "@amped/components"
 /** An individual survey result's summary with optional expanded detail. */
 type SurveyListElement = React.SFC<{
   surveyResult: Data.SurveyResult
-  surveyDetail: {} | Data.SurveyResultDetail | undefined
   index: number
   handleExpand: () => void
 }>
 
 const SurveyListElement: SurveyListElement = ({
+  children,
   surveyResult,
-  surveyDetail,
   index,
   handleExpand
 }) => {
@@ -29,9 +28,7 @@ const SurveyListElement: SurveyListElement = ({
       <ExpansionPanelSummary expandIcon={<ExpandMore />}>
         <Typography variant="title">{surveyResult.name}</Typography>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <SurveyDetail detail={surveyDetail} />
-      </ExpansionPanelDetails>
+      <ExpansionPanelDetails>{children}</ExpansionPanelDetails>
     </ExpansionPanel>
   )
 }

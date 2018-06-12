@@ -37,10 +37,11 @@ const SurveyList: Components.SurveyList = ({
       <SurveyListElement
         handleExpand={makeExpandHandler(index)}
         surveyResult={surveyResult}
-        surveyDetail={surveyDetail}
         index={index}
         key={index}
-      />
+      >
+        <SurveyDetail detail={surveyDetail} />
+      </SurveyListElement>
     )
   })
 
